@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react"
+import { Fragment, useEffect } from "react"
 import { createPortal } from "react-dom"
 import classes from "./Modal.module.css"
 
@@ -23,13 +23,13 @@ const portalElement = document.getElementById("overlays")
 
 const Modal = ({ children, onClick }) => {
 
-    // useState(() => {
-    //     document.body.style.overflow = "hidden"
+    useEffect(() => {
+        document.body.style.overflow = "hidden"
 
-    //     return () => {
-    //         document.body.style.overflow = "scroll"
-    //     }
-    // }, [])
+        return () => {
+            document.body.style.overflow = "scroll"
+        }
+    }, [])
 
     return (
         <Fragment>
