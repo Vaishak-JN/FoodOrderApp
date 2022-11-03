@@ -24,7 +24,16 @@ const Cart = ({ onShowCart }) => {
         setShowCheckout(true)
     }
 
+    const cancelHandler = () => {
+        setShowCheckout(false)
+    }
+
     const cartItems = <ul className={classes["cart-items"]}>{cartCtx.items.map(item => <CartItem key={item.id} name={item.name} amount={item.amount} price={item.price} onRemove={cartItemRemoveHandler.bind(null, item)} onAdd={cartItemAddHandler.bind(null, item)} />)}</ul>
+
+    const modalActions = <div className={classes.actions}>
+        <button className={classes["button--alt"]} onClick={onShowCart}>Close</button>
+        {hasItems && <button className={classes.button} onClick={orderHandler}>Order</button>}
+    </div>
 
     return (
         <Modal onClick={onShowCart}>
@@ -35,11 +44,8 @@ const Cart = ({ onShowCart }) => {
                 <span>Total Amount</span>
                 <span>{totalAmount}</span>
             </div>
-            {showCheckout && <Checkout />}
-            <div className={classes.actions}>
-                <button className={classes["button--alt"]} onClick={onShowCart}>Close</button>
-                {hasItems && <button className={classes.button} onClick={orderHandler}>Order</button>}
-            </div>
+            {showCheckout && <Checkout onCancel={cancelHandler} />}
+            {!showCheckout && modalActions}
         </Modal>
     )
 }
