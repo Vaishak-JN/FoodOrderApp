@@ -4,7 +4,7 @@ import { useRef, useState } from "react"
 const isEmpty = val => val.trim() === ""
 const isFiveChars = val => val.trim().length === 5
 
-const Checkout = ({ onCancel }) => {
+const Checkout = ({ onCancel, onConfirm }) => {
 
     const [formInputsValidity, setFormInutsValidity] = useState({
         name: true,
@@ -43,6 +43,13 @@ const Checkout = ({ onCancel }) => {
         if (!formIsValid) {
             return
         }
+
+        onConfirm({
+            name: enteredName,
+            street: enteredStreet,
+            pin: enteredPin,
+            city: enteredCity
+        })
     }
     return (
         <form className={classes.form} onSubmit={confirmHandler}>
